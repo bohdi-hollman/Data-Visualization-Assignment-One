@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bohdi Hollman - Data Visualization Assignment One</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.2.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.20.8"></script>
+
+  <style media="screen">
+
+    .vega-actions a {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bohdi Hollman - Data Visualization Assignment One</h1>
+  <hr>
+  <h2>Hypothesis: The Use of the Divine Tetragrammaton (יהוה‎) of Each Book of the Tanakh has <b><em>No Strong Correlation</em></b> to the Number of Prophecies Given in the Respective Book—Higher Use of the Tetragrammaton Does Not Correlate to Higher Prophetic Frequency.</h2>
+  <p style="border-width:3px; border-style:solid; border-color: black; padding: 1em;">וַיְדַבֵּר אֱלֹהִים אֶל־מֹשֶׁה וַיֹּאמֶר אֵלָיו אֲנִי יְהוָה׃ וָאֵרָא אֶל־אַבְרָהָם אֶל־יִצְחָק וְאֶל־יַעֲקֹב בְּאֵל שַׁדָּי וּשְׁמִי יְהוָה לֹא נֹודַעְתִּי לָהֶם׃ 
+  <br>"God spoke to Moses and said to him, 'I am Yahweh. I appeared to Abraham, to Isaac, and to Jacob, as God Almighty, but by My Name Yahweh I did not make Myself known to them" (Ex. 6:2-3)</p>
+  <hr>
+  <br>
+  <div id="vis"/>
+  <script>
+    const spec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "values": [
+      {"category2": "Gen", "group2": "Yahweh Count", "value2": 162},
+      {"category1": "Gen", "group": "Yahweh Frequency", "value1": 0.0098336773},
+      {
+        "category": "Gen",
+        "group": "Prophetic Frequency",
+        "value": 0.13829093281
+      },
+      {"category2": "Gen", "group2": "Prophetic Count", "value2": 212},
+      {"category2": "Gen", "group2": "Messianic Type Count", "value2": 67},
+      {"category2": "Gen", "group2": "Messianic Prophetic Count", "value2": 60},
+      {
+        "category": "Gen",
+        "group": "Messianic Type Frequency",
+        "value": 0.04370515329
+      },
+      {
+        "category4": "Gen",
+        "group4": "Elohim Frequency",
+        "value4": 0.01323297316984339
+      },
+      {
+        "category4": "Gen",
+        "group4": "Yishrael Frequency",
+        "value4": 0.002549471895107442
+      },
+      {"category2": "Ex", "group2": "Yahweh Count", "value2": 398},
+      {"category1": "Ex", "group": "Yahweh Frequency", "value1": 0.02955811362},
+      {
+        "category": "Ex",
+        "group": "Prophetic Frequency",
+        "value": 0.40148392415
+      },
+      {"category2": "Ex", "group2": "Prophetic Count", "value2": 487},
+      {"category2": "Ex", "group2": "Messianic Type Count", "value2": 387},
+      {"category2": "Ex", "group2": "Messianic Prophetic Count", "value2": 14},
+      {
+        "category": "Ex",
+        "group": "Messianic Type Frequency",
+        "value": 0.31904369332
+      },
+      {
+        "category4": "Ex",
+        "group4": "Elohim Frequency",
+        "value4": 0.01032305978462681
+      },
+      {
+        "category4": "Ex",
+        "group4": "Yishrael Frequency",
+        "value4": 0.012625324916450055
+      },
+      {"category2": "Lev", "group2": "Yahweh Count", "value2": 310},
+      {
+        "category1": "Lev",
+        "group": "Yahweh Frequency",
+        "value1": 0.03626579316
+      },
+      {
+        "category": "Lev",
+        "group": "Prophetic Frequency",
+        "value": 0.58905704307
+      },
+      {"category2": "Lev", "group2": "Prophetic Count", "value2": 506},
+      {"category2": "Lev", "group2": "Messianic Type Count", "value2": 462},
+      {"category2": "Lev", "group2": "Messianic Prophetic Count", "value2": 15},
+      {
+        "category": "Lev",
+        "group": "Messianic Type Frequency",
+        "value": 0.5378346915
+      },
+      {
+        "category4": "Lev",
+        "group4": "Elohim Frequency",
+        "value4": 0.006200280767430978
+      },
+      {
+        "category4": "Lev",
+        "group4": "Yishrael Frequency",
+        "value4": 0.00772110435189518
+      },
+      {"category2": "Num", "group2": "Yahweh Count", "value2": 396},
+      {
+        "category1": "Num",
+        "group": "Yahweh Frequency",
+        "value1": 0.02824334926
+      },
+      {
+        "category": "Num",
+        "group": "Prophetic Frequency",
+        "value": 0.35559006211
+      },
+      {"category2": "Num", "group2": "Prophetic Count", "value2": 458},
+      {"category2": "Num", "group2": "Messianic Type Count", "value2": 396},
+      {"category2": "Num", "group2": "Messianic Prophetic Count", "value2": 4},
+      {
+        "category": "Num",
+        "group": "Messianic Type Frequency",
+        "value": 0.30745341614
+      },
+      {
+        "category4": "Num",
+        "group4": "Elohim Frequency",
+        "value4": 0.001925682904215106
+      },
+      {
+        "category4": "Num",
+        "group4": "Yishrael Frequency",
+        "value4": 0.016831895014620925
+      },
+      {"category2": "Deut", "group2": "Yahweh Count", "value2": 549},
+      {
+        "category1": "Deut",
+        "group": "Yahweh Frequency",
+        "value1": 0.04580725907
+      },
+      {
+        "category": "Deut",
+        "group": "Prophetic Frequency",
+        "value": 0.35870698644
+      },
+      {"category2": "Deut", "group2": "Prophetic Count", "value2": 344},
+      {"category2": "Deut", "group2": "Messianic Type Count", "value2": 68},
+      {
+        "category2": "Deut",
+        "group2": "Messianic Prophetic Count",
+        "value2": 28
+      },
+      {
+        "category": "Deut",
+        "group": "Messianic Type Frequency",
+        "value": 0.07090719499
+      },
+      {
+        "category4": "Deut",
+        "group4": "Elohim Frequency",
+        "value4": 0.031205673758865248
+      },
+      {
+        "category4": "Deut",
+        "group4": "Yishrael Frequency",
+        "value4": 0.005924071756362119
+      },
+      {"category2": "Josh", "group2": "Yahweh Count", "value2": 446},
+      {
+        "category1": "Josh",
+        "group": "Yahweh Frequency",
+        "value1": 0.02902512039
+      },
+      {
+        "category": "Josh",
+        "group": "Prophetic Frequency",
+        "value": 0.13525835866
+      },
+      {"category2": "Josh", "group2": "Prophetic Count", "value2": 89},
+      {"category2": "Josh", "group2": "Messianic Type Count", "value2": 51},
+      {"category2": "Josh", "group2": "Messianic Prophetic Count", "value2": 5},
+      {
+        "category": "Josh",
+        "group": "Messianic Type Frequency",
+        "value": 0.07750759878
+      },
+      {
+        "category4": "Josh",
+        "group4": "Elohim Frequency",
+        "value4": 0.009891969282832227
+      },
+      {
+        "category4": "Josh",
+        "group4": "Yishrael Frequency",
+        "value4": 0.02082519849017311
+      },
+      {"category2": "Judg", "group2": "Yahweh Count", "value2": 172},
+      {
+        "category1": "Judg",
+        "group": "Yahweh Frequency",
+        "value1": 0.02195557824
+      },
+      {
+        "category": "Judg",
+        "group": "Prophetic Frequency",
+        "value": 0.06634304207
+      },
+      {"category2": "Judg", "group2": "Prophetic Count", "value2": 41},
+      {"category2": "Judg", "group2": "Messianic Type Count", "value2": 17},
+      {"category2": "Judg", "group2": "Messianic Prophetic Count", "value2": 3},
+      {
+        "category": "Judg",
+        "group": "Messianic Type Frequency",
+        "value": 0.02750809061
+      },
+      {
+        "category4": "Judg",
+        "group4": "Elohim Frequency",
+        "value4": 0.009318355884605566
+      },
+      {
+        "category4": "Judg",
+        "group4": "Yishrael Frequency",
+        "value4": 0.023487362777635946
+      },
+      {"category2": "Ruth", "group2": "Yahweh Count", "value2": 18},
+      {
+        "category1": "Ruth",
+        "group": "Yahweh Frequency",
+        "value1": 0.01836734693
+      },
+      {"category": "Ruth", "group": "Prophetic Frequency", "value": 0},
+      {"category2": "Ruth", "group2": "Prophetic Count", "value2": 0},
+      {"category2": "Ruth", "group2": "Messianic Type Count", "value2": 0},
+      {
+        "category2": "Ruth",
+        "group2": "Messianic Prophetic Count",
+        "value2": 15
+      },
+      {"category": "Ruth", "group": "Messianic Type Frequency", "value": 0},
+      {
+        "category4": "Ruth",
+        "group4": "Elohim Frequency",
+        "value4": 0.004081632653061225
+      },
+      {
+        "category4": "Ruth",
+        "group4": "Yishrael Frequency",
+        "value4": 0.00510204081632653
+      },
+      {"category2": "1 Sam", "group2": "Yahweh Count", "value2": 320},
+      {
+        "category1": "1 Sam",
+        "group": "Yahweh Frequency",
+        "value1": 0.02890695573
+      },
+      {
+        "category": "1 Sam",
+        "group": "Prophetic Frequency",
+        "value": 0.15308641975
+      },
+      {"category2": "1 Sam", "group2": "Prophetic Count", "value2": 124},
+      {"category2": "1 Sam", "group2": "Messianic Type Count", "value2": 81},
+      {
+        "category2": "1 Sam",
+        "group2": "Messianic Prophetic Count",
+        "value2": 6
+      },
+      {"category": "1 Sam", "group": "Messianic Type Frequency", "value": 0.1},
+      {
+        "category4": "1 Sam",
+        "group4": "Elohim Frequency",
+        "value4": 0.009033423667570008
+      },
+      {
+        "category4": "1 Sam",
+        "group4": "Yishrael Frequency",
+        "value4": 0.013640469738030713
+      },
+      {"category2": "2 Sam", "group2": "Yahweh Count", "value2": 146},
+      {
+        "category1": "2 Sam",
+        "group": "Yahweh Frequency",
+        "value1": 0.01614508459
+      },
+      {
+        "category": "2 Sam",
+        "group": "Prophetic Frequency",
+        "value": 0.09784172661
+      },
+      {"category2": "2 Sam", "group2": "Prophetic Count", "value2": 68},
+      {"category2": "2 Sam", "group2": "Messianic Type Count", "value2": 34},
+      {
+        "category2": "2 Sam",
+        "group2": "Messianic Prophetic Count",
+        "value2": 6
+      },
+      {
+        "category": "2 Sam",
+        "group": "Messianic Type Frequency",
+        "value": 0.0489208633
+      },
+      {
+        "category4": "2 Sam",
+        "group4": "Elohim Frequency",
+        "value4": 0.006082052416233551
+      },
+      {
+        "category4": "2 Sam",
+        "group4": "Yishrael Frequency",
+        "value4": 0.012938184230896826
+      },
+      {"category2": "1 Kgs", "group2": "Yahweh Count", "value2": 256},
+      {
+        "category1": "1 Kgs",
+        "group": "Yahweh Frequency",
+        "value1": 0.02333211811
+      },
+      {
+        "category": "1 Kgs",
+        "group": "Prophetic Frequency",
+        "value": 0.23161764705
+      },
+      {"category2": "1 Kgs", "group2": "Prophetic Count", "value2": 189},
+      {"category2": "1 Kgs", "group2": "Messianic Type Count", "value2": 132},
+      {
+        "category2": "1 Kgs",
+        "group2": "Messianic Prophetic Count",
+        "value2": 1
+      },
+      {
+        "category": "1 Kgs",
+        "group": "Messianic Type Frequency",
+        "value": 0.16176470588
+      },
+      {
+        "category4": "1 Kgs",
+        "group4": "Elohim Frequency",
+        "value4": 0.00975209624498724
+      },
+      {
+        "category4": "1 Kgs",
+        "group4": "Yishrael Frequency",
+        "value4": 0.01850164053955523
+      },
+      {"category2": "2 Kgs", "group2": "Yahweh Count", "value2": 277},
+      {
+        "category1": "2 Kgs",
+        "group": "Yahweh Frequency",
+        "value1": 0.02676845767
+      },
+      {
+        "category": "2 Kgs",
+        "group": "Prophetic Frequency",
+        "value": 0.20027816411
+      },
+      {"category2": "2 Kgs", "group2": "Prophetic Count", "value2": 144},
+      {"category2": "2 Kgs", "group2": "Messianic Type Count", "value2": 75},
+      {
+        "category2": "2 Kgs",
+        "group2": "Messianic Prophetic Count",
+        "value2": 1
+      },
+      {
+        "category": "2 Kgs",
+        "group": "Messianic Type Frequency",
+        "value": 0.10431154381
+      },
+      {
+        "category4": "2 Kgs",
+        "group4": "Elohim Frequency",
+        "value4": 0.009470429068419018
+      },
+      {
+        "category4": "2 Kgs",
+        "group4": "Yishrael Frequency",
+        "value4": 0.015751836103594898
+      },
+      {"category2": "1 Chr", "group2": "Yahweh Count", "value2": 174},
+      {
+        "category1": "1 Chr",
+        "group": "Yahweh Frequency",
+        "value1": 0.01860166773
+      },
+      {
+        "category": "1 Chr",
+        "group": "Prophetic Frequency",
+        "value": 0.14012738853
+      },
+      {"category2": "1 Chr", "group2": "Prophetic Count", "value2": 132},
+      {"category2": "1 Chr", "group2": "Messianic Type Count", "value2": 101},
+      {
+        "category2": "1 Chr",
+        "group2": "Messianic Prophetic Count",
+        "value2": 4
+      },
+      {
+        "category": "1 Chr",
+        "group": "Messianic Type Frequency",
+        "value": 0.10721868365
+      },
+      {
+        "category4": "1 Chr",
+        "group4": "Elohim Frequency",
+        "value4": 0.012721830233055377
+      },
+      {
+        "category4": "1 Chr",
+        "group4": "Yishrael Frequency",
+        "value4": 0.012187299550994226
+      },
+      {"category2": "2 Chr", "group2": "Yahweh Count", "value2": 384},
+      {
+        "category1": "2 Chr",
+        "group": "Yahweh Frequency",
+        "value1": 0.03316062176
+      },
+      {
+        "category": "2 Chr",
+        "group": "Prophetic Frequency",
+        "value": 0.32603406326
+      },
+      {"category2": "2 Chr", "group2": "Prophetic Count", "value2": 268},
+      {"category2": "2 Chr", "group2": "Messianic Type Count", "value2": 232},
+      {
+        "category2": "2 Chr",
+        "group2": "Messianic Prophetic Count",
+        "value2": 0
+      },
+      {
+        "category": "2 Chr",
+        "group": "Messianic Type Frequency",
+        "value": 0.28223844282
+      },
+      {
+        "category4": "2 Chr",
+        "group4": "Elohim Frequency",
+        "value4": 0.01753022452504318
+      },
+      {
+        "category4": "2 Chr",
+        "group4": "Yishrael Frequency",
+        "value4": 0.01614853195164076
+      },
+      {"category2": "Ezra", "group2": "Yahweh Count", "value2": 37},
+      {
+        "category1": "Ezra",
+        "group": "Yahweh Frequency",
+        "value1": 0.01033519553
+      },
+      {"category": "Ezra", "group": "Prophetic Frequency", "value": 0.225},
+      {"category2": "Ezra", "group2": "Prophetic Count", "value2": 63},
+      {"category2": "Ezra", "group2": "Messianic Type Count", "value2": 63},
+      {"category2": "Ezra", "group2": "Messianic Prophetic Count", "value2": 1},
+      {"category": "Ezra", "group": "Messianic Type Frequency", "value": 0.225},
+      {
+        "category4": "Ezra",
+        "group4": "Elohim Frequency",
+        "value4": 0.015363128491620111
+      },
+      {
+        "category4": "Ezra",
+        "group4": "Yishrael Frequency",
+        "value4": 0.008938547486033519
+      },
+      {"category2": "Neh", "group2": "Yahweh Count", "value2": 17},
+      {"category1": "Neh", "group": "Yahweh Frequency", "value1": 0.0034708044},
+      {
+        "category": "Neh",
+        "group": "Prophetic Frequency",
+        "value": 0.11083743842
+      },
+      {"category2": "Neh", "group2": "Prophetic Count", "value2": 45},
+      {"category2": "Neh", "group2": "Messianic Type Count", "value2": 43},
+      {"category2": "Neh", "group2": "Messianic Prophetic Count", "value2": 3},
+      {
+        "category": "Neh",
+        "group": "Messianic Type Frequency",
+        "value": 0.10591133004
+      },
+      {
+        "category4": "Neh",
+        "group4": "Elohim Frequency",
+        "value4": 0.014291547570436913
+      },
+      {
+        "category4": "Neh",
+        "group4": "Yishrael Frequency",
+        "value4": 0.00449162923642303
+      },
+      {"category2": "Est", "group2": "Yahweh Count", "value2": 0},
+      {"category1": "Est", "group": "Yahweh Frequency", "value1": 0},
+      {
+        "category": "Est",
+        "group": "Prophetic Frequency",
+        "value": 0.00598802395
+      },
+      {"category2": "Est", "group2": "Prophetic Count", "value2": 1},
+      {"category2": "Est", "group2": "Messianic Type Count", "value2": 0},
+      {"category2": "Est", "group2": "Messianic Prophetic Count", "value2": 3},
+      {"category": "Est", "group": "Messianic Type Frequency", "value": 0},
+      {"category4": "Est", "group4": "Elohim Frequency", "value4": 0},
+      {"category4": "Est", "group4": "Yishrael Frequency", "value4": 0},
+      {"category2": "Job", "group2": "Yahweh Count", "value2": 32},
+      {
+        "category1": "Job",
+        "group": "Yahweh Frequency",
+        "value1": 0.00436383471
+      },
+      {
+        "category": "Job",
+        "group": "Prophetic Frequency",
+        "value": 0.02056074766
+      },
+      {"category2": "Job", "group2": "Prophetic Count", "value2": 22},
+      {"category2": "Job", "group2": "Messianic Type Count", "value2": 2},
+      {"category2": "Job", "group2": "Messianic Prophetic Count", "value2": 5},
+      {
+        "category": "Job",
+        "group": "Messianic Type Frequency",
+        "value": 0.00186915887
+      },
+      {
+        "category4": "Job",
+        "group4": "Elohim Frequency",
+        "value4": 0.002318287194872494
+      },
+      {"category4": "Job", "group4": "Yishrael Frequency", "value4": 0},
+      {"category2": "Psa", "group2": "Yahweh Count", "value2": 686},
+      {
+        "category1": "Psa",
+        "group": "Yahweh Frequency",
+        "value1": 0.03830048573
+      },
+      {
+        "category": "Psa",
+        "group": "Prophetic Frequency",
+        "value": 0.09580364212
+      },
+      {"category2": "Psa", "group2": "Prophetic Count", "value2": 242},
+      {"category2": "Psa", "group2": "Messianic Type Count", "value2": 101},
+      {
+        "category2": "Psa",
+        "group2": "Messianic Prophetic Count",
+        "value2": 132
+      },
+      {
+        "category": "Psa",
+        "group": "Messianic Type Frequency",
+        "value": 0.03998416468
+      },
+      {
+        "category4": "Psa",
+        "group4": "Elohim Frequency",
+        "value4": 0.020322706716542908
+      },
+      {
+        "category4": "Psa",
+        "group4": "Yishrael Frequency",
+        "value4": 0.00346155993523533
+      },
+      {"category5": "Prov", "group2": "Yahweh Count", "value5": 87},
+      {
+        "category1": "Prov",
+        "group": "Yahweh Frequency",
+        "value1": 0.01308073973
+      },
+      {
+        "category": "Prov",
+        "group": "Prophetic Frequency",
+        "value": 0.00765027322
+      },
+      {"category5": "Prov", "group2": "Prophetic Count", "value5": 7},
+      {"category5": "Prov", "group2": "Messianic Type Count", "value5": 6},
+      {"category5": "Prov", "group2": "Messianic Prophetic Count", "value5": 8},
+      {
+        "category": "Prov",
+        "group": "Messianic Type Frequency",
+        "value": 0.00655737704
+      },
+      {
+        "category4": "Prov",
+        "group4": "Elohim Frequency",
+        "value4": 0.0007517666516313336
+      },
+      {
+        "category4": "Prov",
+        "group4": "Yishrael Frequency",
+        "value4": 0.00015035333032626674
+      },
+      {"category5": "Eccl", "group2": "Yahweh Count", "value5": 0},
+      {"category1": "Eccl", "group": "Yahweh Frequency", "value1": 0},
+      {
+        "category": "Eccl",
+        "group": "Prophetic Frequency",
+        "value": 0.03153153153
+      },
+      {"category5": "Eccl", "group2": "Prophetic Count", "value5": 7},
+      {"category5": "Eccl", "group2": "Messianic Type Count", "value5": 3},
+      {
+        "category5": "Eccl",
+        "group2": "Messianic Prophetic Count",
+        "value5": 10
+      },
+      {
+        "category": "Eccl",
+        "group": "Messianic Type Frequency",
+        "value": 0.01351351351
+      },
+      {
+        "category4": "Eccl",
+        "group4": "Elohim Frequency",
+        "value4": 0.01511144692104269
+      },
+      {
+        "category4": "Eccl",
+        "group4": "Yishrael Frequency",
+        "value4": 0.00037778617302606723
+      },
+      {"category5": "Song", "group2": "Yahweh Count", "value5": 0},
+      {"category1": "Song", "group": "Yahweh Frequency", "value1": 0},
+      {"category": "Song", "group": "Prophetic Frequency", "value": 0},
+      {"category5": "Song", "group2": "Prophetic Count", "value5": 0},
+      {"category5": "Song", "group2": "Messianic Type Count", "value5": 0},
+      {
+        "category5": "Song",
+        "group2": "Messianic Prophetic Count",
+        "value5": 27
+      },
+      {"category": "Song", "group": "Messianic Type Frequency", "value": 0},
+      {"category4": "Song", "group4": "Elohim Frequency", "value4": 0},
+      {
+        "category4": "Song",
+        "group4": "Yishrael Frequency",
+        "value4": 0.0008628127696289905
+      },
+      {"category5": "Isa", "group2": "Yahweh Count", "value5": 426},
+      {
+        "category1": "Isa",
+        "group": "Yahweh Frequency",
+        "value1": 0.02718917538
+      },
+      {
+        "category": "Isa",
+        "group": "Prophetic Frequency",
+        "value": 0.58359133126
+      },
+      {"category5": "Isa", "group2": "Prophetic Count", "value5": 754},
+      {"category5": "Isa", "group2": "Messianic Type Count", "value5": 25},
+      {
+        "category5": "Isa",
+        "group2": "Messianic Prophetic Count",
+        "value5": 134
+      },
+      {
+        "category": "Isa",
+        "group": "Messianic Type Frequency",
+        "value": 0.0193498452
+      },
+      {
+        "category4": "Isa",
+        "group4": "Elohim Frequency",
+        "value4": 0.005999489405157008
+      },
+      {
+        "category4": "Isa",
+        "group4": "Yishrael Frequency",
+        "value4": 0.005871840694408987
+      },
+      {"category5": "Jer", "group2": "Yahweh Count", "value5": 712},
+      {
+        "category1": "Jer",
+        "group": "Yahweh Frequency",
+        "value1": 0.03730092204
+      },
+      {
+        "category": "Jer",
+        "group": "Prophetic Frequency",
+        "value": 0.59530791788
+      },
+      {"category5": "Jer", "group2": "Prophetic Count", "value5": 812},
+      {"category5": "Jer", "group2": "Messianic Type Count", "value5": 60},
+      {"category5": "Jer", "group2": "Messianic Prophetic Count", "value5": 38},
+      {
+        "category": "Jer",
+        "group": "Messianic Type Frequency",
+        "value": 0.04398826979
+      },
+      {
+        "category4": "Jer",
+        "group4": "Elohim Frequency",
+        "value4": 0.00759639564124057
+      },
+      {
+        "category4": "Jer",
+        "group4": "Yishrael Frequency",
+        "value4": 0.006548616932103939
+      },
+      {"category5": "Lam", "group2": "Yahweh Count", "value5": 32},
+      {
+        "category1": "Lam",
+        "group": "Yahweh Frequency",
+        "value1": 0.02187286397
+      },
+      {
+        "category": "Lam",
+        "group": "Prophetic Frequency",
+        "value": 0.05194805194
+      },
+      {"category5": "Lam", "group2": "Prophetic Count", "value5": 8},
+      {"category5": "Lam", "group2": "Messianic Type Count", "value5": 6},
+      {"category5": "Lam", "group2": "Messianic Prophetic Count", "value5": 13},
+      {
+        "category": "Lam",
+        "group": "Messianic Type Frequency",
+        "value": 0.03896103896
+      },
+      {"category4": "Lam", "group4": "Elohim Frequency", "value4": 0},
+      {
+        "category4": "Lam",
+        "group4": "Yishrael Frequency",
+        "value4": 0.002050580997949419
+      },
+      {"category5": "Ezek", "group2": "Yahweh Count", "value5": 217},
+      {
+        "category1": "Ezek",
+        "group": "Yahweh Frequency",
+        "value1": 0.01309279594
+      },
+      {
+        "category": "Ezek",
+        "group": "Prophetic Frequency",
+        "value": 0.64493322859
+      },
+      {"category5": "Ezek", "group2": "Prophetic Count", "value5": 821},
+      {"category5": "Ezek", "group2": "Messianic Type Count", "value5": 198},
+      {
+        "category5": "Ezek",
+        "group2": "Messianic Prophetic Count",
+        "value5": 21
+      },
+      {
+        "category": "Ezek",
+        "group": "Messianic Type Frequency",
+        "value": 0.15553809897
+      },
+      {
+        "category4": "Ezek",
+        "group4": "Elohim Frequency",
+        "value4": 0.002172076746711717
+      },
+      {
+        "category4": "Ezek",
+        "group4": "Yishrael Frequency",
+        "value4": 0.011222396524677205
+      },
+      {"category5": "Dan", "group2": "Yahweh Count", "value5": 8},
+      {
+        "category1": "Dan",
+        "group": "Yahweh Frequency",
+        "value1": 0.00147383935
+      },
+      {
+        "category": "Dan",
+        "group": "Prophetic Frequency",
+        "value": 0.45098039215
+      },
+      {"category5": "Dan", "group2": "Prophetic Count", "value5": 161},
+      {"category5": "Dan", "group2": "Messianic Type Count", "value5": 6},
+      {"category5": "Dan", "group2": "Messianic Prophetic Count", "value5": 17},
+      {
+        "category": "Dan",
+        "group": "Messianic Type Frequency",
+        "value": 0.01680672268
+      },
+      {
+        "category4": "Dan",
+        "group4": "Elohim Frequency",
+        "value4": 0.0040530582166543845
+      },
+      {
+        "category4": "Dan",
+        "group4": "Yishrael Frequency",
+        "value4": 0.0007369196757553427
+      },
+      {"category5": "Hos", "group2": "Yahweh Count", "value5": 46},
+      {
+        "category1": "Hos",
+        "group": "Yahweh Frequency",
+        "value1": 0.02445507708
+      },
+      {
+        "category": "Hos",
+        "group": "Prophetic Frequency",
+        "value": 0.56345177665
+      },
+      {"category5": "Hos", "group2": "Prophetic Count", "value5": 111},
+      {"category5": "Hos", "group2": "Messianic Type Count", "value5": 6},
+      {"category5": "Hos", "group2": "Messianic Prophetic Count", "value5": 8},
+      {
+        "category": "Hos",
+        "group": "Messianic Type Frequency",
+        "value": 0.03045685279
+      },
+      {
+        "category4": "Hos",
+        "group4": "Elohim Frequency",
+        "value4": 0.013822434875066455
+      },
+      {
+        "category4": "Hos",
+        "group4": "Yishrael Frequency",
+        "value4": 0.023391812865497075
+      },
+      {"category5": "Joel", "group2": "Yahweh Count", "value5": 33},
+      {
+        "category1": "Joel",
+        "group": "Yahweh Frequency",
+        "value1": 0.03947368421
+      },
+      {
+        "category": "Joel",
+        "group": "Prophetic Frequency",
+        "value": 0.68493150684
+      },
+      {"category5": "Joel", "group2": "Prophetic Count", "value5": 50},
+      {"category5": "Joel", "group2": "Messianic Type Count", "value5": 6},
+      {"category5": "Joel", "group2": "Messianic Prophetic Count", "value5": 2},
+      {
+        "category": "Joel",
+        "group": "Messianic Type Frequency",
+        "value": 0.08219178082
+      },
+      {
+        "category4": "Joel",
+        "group4": "Elohim Frequency",
+        "value4": 0.013157894736842105
+      },
+      {
+        "category4": "Joel",
+        "group4": "Yishrael Frequency",
+        "value4": 0.0035885167464114833
+      },
+      {"category5": "Amos", "group2": "Yahweh Count", "value5": 60},
+      {
+        "category1": "Amos",
+        "group": "Yahweh Frequency",
+        "value1": 0.03434459072
+      },
+      {
+        "category": "Amos",
+        "group": "Prophetic Frequency",
+        "value": 0.58219178082
+      },
+      {"category5": "Amos", "group2": "Prophetic Count", "value5": 85},
+      {"category5": "Amos", "group2": "Messianic Type Count", "value5": 5},
+      {
+        "category5": "Amos",
+        "group2": "Messianic Prophetic Count",
+        "value5": 10
+      },
+      {
+        "category": "Amos",
+        "group": "Messianic Type Frequency",
+        "value": 0.03424657534
+      },
+      {
+        "category4": "Amos",
+        "group4": "Elohim Frequency",
+        "value4": 0.008013737836290785
+      },
+      {
+        "category4": "Amos",
+        "group4": "Yishrael Frequency",
+        "value4": 0.017172295363480253
+      },
+      {"category5": "Obad", "group2": "Yahweh Count", "value5": 6},
+      {
+        "category1": "Obad",
+        "group": "Yahweh Frequency",
+        "value1": 0.02390438247
+      },
+      {
+        "category": "Obad",
+        "group": "Prophetic Frequency",
+        "value": 0.80952380952
+      },
+      {"category5": "Obad", "group2": "Prophetic Count", "value5": 17},
+      {"category5": "Obad", "group2": "Messianic Type Count", "value5": 0},
+      {"category5": "Obad", "group2": "Messianic Prophetic Count", "value5": 2},
+      {"category": "Obad", "group": "Messianic Type Frequency", "value": 0},
+      {"category4": "Obad", "group4": "Elohim Frequency", "value4": 0},
+      {
+        "category4": "Obad",
+        "group4": "Yishrael Frequency",
+        "value4": 0.00398406374501992
+      },
+      {"category5": "Jon", "group2": "Yahweh Count", "value5": 26},
+      {
+        "category1": "Jon",
+        "group": "Yahweh Frequency",
+        "value1": 0.04626334519
+      },
+      {
+        "category": "Jon",
+        "group": "Prophetic Frequency",
+        "value": 0.10416666666
+      },
+      {"category5": "Jon", "group2": "Prophetic Count", "value5": 5},
+      {"category5": "Jon", "group2": "Messianic Type Count", "value5": 3},
+      {"category5": "Jon", "group2": "Messianic Prophetic Count", "value5": 8},
+      {"category": "Jon", "group": "Messianic Type Frequency", "value": 0.0625},
+      {
+        "category4": "Jon",
+        "group4": "Elohim Frequency",
+        "value4": 0.030249110320284697
+      },
+      {"category4": "Jon", "group4": "Yishrael Frequency", "value4": 0},
+      {"category5": "Mic", "group2": "Yahweh Count", "value5": 39},
+      {"category1": "Mic", "group": "Yahweh Frequency", "value1": 0.03125},
+      {
+        "category": "Mic",
+        "group": "Prophetic Frequency",
+        "value": 0.69523809523
+      },
+      {"category5": "Mic", "group2": "Prophetic Count", "value5": 73},
+      {"category5": "Mic", "group2": "Messianic Type Count", "value5": 2},
+      {"category5": "Mic", "group2": "Messianic Prophetic Count", "value5": 14},
+      {
+        "category": "Mic",
+        "group": "Messianic Type Frequency",
+        "value": 0.01904761904
+      },
+      {
+        "category4": "Mic",
+        "group4": "Elohim Frequency",
+        "value4": 0.008814102564102564
+      },
+      {
+        "category4": "Mic",
+        "group4": "Yishrael Frequency",
+        "value4": 0.009615384615384616
+      },
+      {"category5": "Nah", "group2": "Yahweh Count", "value5": 13},
+      {
+        "category1": "Nah",
+        "group": "Yahweh Frequency",
+        "value1": 0.02514506769
+      },
+      {
+        "category": "Nah",
+        "group": "Prophetic Frequency",
+        "value": 0.74468085106
+      },
+      {"category5": "Nah", "group2": "Prophetic Count", "value5": 35},
+      {"category5": "Nah", "group2": "Messianic Type Count", "value5": 0},
+      {"category5": "Nah", "group2": "Messianic Prophetic Count", "value5": 1},
+      {"category": "Nah", "group": "Messianic Type Frequency", "value": 0},
+      {
+        "category4": "Nah",
+        "group4": "Elohim Frequency",
+        "value4": 0.0019342359767891683
+      },
+      {
+        "category4": "Nah",
+        "group4": "Yishrael Frequency",
+        "value4": 0.0019342359767891683
+      },
+      {"category5": "Hab", "group2": "Yahweh Count", "value5": 12},
+      {
+        "category1": "Hab",
+        "group": "Yahweh Frequency",
+        "value1": 0.02006688963
+      },
+      {
+        "category": "Hab",
+        "group": "Prophetic Frequency",
+        "value": 0.41071428571
+      },
+      {"category5": "Hab", "group2": "Prophetic Count", "value5": 23},
+      {"category5": "Hab", "group2": "Messianic Type Count", "value5": 0},
+      {"category5": "Hab", "group2": "Messianic Prophetic Count", "value5": 4},
+      {"category": "Hab", "group": "Messianic Type Frequency", "value": 0},
+      {
+        "category4": "Hab",
+        "group4": "Elohim Frequency",
+        "value4": 0.0033444816053511705
+      },
+      {"category4": "Hab", "group4": "Yishrael Frequency", "value4": 0},
+      {"category5": "Zeph", "group2": "Yahweh Count", "value5": 33},
+      {
+        "category1": "Zeph",
+        "group": "Yahweh Frequency",
+        "value1": 0.04896142433
+      },
+      {
+        "category": "Zeph",
+        "group": "Prophetic Frequency",
+        "value": 0.88679245283
+      },
+      {"category5": "Zeph", "group2": "Prophetic Count", "value5": 47},
+      {"category5": "Zeph", "group2": "Messianic Type Count", "value5": 1},
+      {"category5": "Zeph", "group2": "Messianic Prophetic Count", "value5": 5},
+      {
+        "category": "Zeph",
+        "group": "Messianic Type Frequency",
+        "value": 0.01886792452
+      },
+      {
+        "category4": "Zeph",
+        "group4": "Elohim Frequency",
+        "value4": 0.00741839762611276
+      },
+      {
+        "category4": "Zeph",
+        "group4": "Yishrael Frequency",
+        "value4": 0.005934718100890208
+      },
+      {"category5": "Hag", "group2": "Yahweh Count", "value5": 35},
+      {
+        "category1": "Hag",
+        "group": "Yahweh Frequency",
+        "value1": 0.06796116504
+      },
+      {
+        "category": "Hag",
+        "group": "Prophetic Frequency",
+        "value": 0.3947368421
+      },
+      {"category5": "Hag", "group2": "Prophetic Count", "value5": 15},
+      {"category5": "Hag", "group2": "Messianic Type Count", "value5": 9},
+      {"category5": "Hag", "group2": "Messianic Prophetic Count", "value5": 4},
+      {
+        "category": "Hag",
+        "group": "Messianic Type Frequency",
+        "value": 0.23684210526
+      },
+      {
+        "category4": "Hag",
+        "group4": "Elohim Frequency",
+        "value4": 0.005825242718446602
+      },
+      {"category4": "Hag", "group4": "Yishrael Frequency", "value4": 0},
+      {"category5": "Zech", "group2": "Yahweh Count", "value5": 132},
+      {
+        "category1": "Zech",
+        "group": "Yahweh Frequency",
+        "value1": 0.0507887649
+      },
+      {
+        "category": "Zech",
+        "group": "Prophetic Frequency",
+        "value": 0.68246445497
+      },
+      {"category5": "Zech", "group2": "Prophetic Count", "value5": 144},
+      {"category5": "Zech", "group2": "Messianic Type Count", "value5": 9},
+      {
+        "category5": "Zech",
+        "group2": "Messianic Prophetic Count",
+        "value5": 39
+      },
+      {
+        "category": "Zech",
+        "group": "Messianic Type Frequency",
+        "value": 0.04265402843
+      },
+      {
+        "category4": "Zech",
+        "group4": "Elohim Frequency",
+        "value4": 0.004232397075798384
+      },
+      {
+        "category4": "Zech",
+        "group4": "Yishrael Frequency",
+        "value4": 0.001923816852635629
+      },
+      {"category5": "Mal", "group2": "Yahweh Count", "value5": 47},
+      {
+        "category1": "Mal",
+        "group": "Yahweh Frequency",
+        "value1": 0.06536856745
+      },
+      {
+        "category": "Mal",
+        "group": "Prophetic Frequency",
+        "value": 0.56363636363
+      },
+      {"category5": "Mal", "group2": "Prophetic Count", "value5": 31},
+      {"category5": "Mal", "group2": "Messianic Type Count", "value5": 14},
+      {"category5": "Mal", "group2": "Messianic Prophetic Count", "value5": 11},
+      {
+        "category": "Mal",
+        "group": "Messianic Type Frequency",
+        "value": 0.25454545454
+      },
+      {
+        "category4": "Mal",
+        "group4": "Elohim Frequency",
+        "value4": 0.009735744089012517
+      },
+      {
+        "category4": "Mal",
+        "group4": "Yishrael Frequency",
+        "value4": 0.006954102920723227
+      },
+      {"category3": "Lev"},
+      {"category3": "Josh"},
+      {"category3": "1 Sam"},
+      {"category3": "2 Kgs"},
+      {"category3": "Ezra"},
+      {"category3": "Isa"}
+    ]
+  },
+  "config": {"concat": {"spacing": 65}},
+  "vconcat": [
+    {
+      "layer": [
+        {
+          "mark": "rule",
+          "encoding": {
+            "y": {"field": "value2", "aggregate": "mean"},
+            "size": {"value": 1},
+            "opacity": {"value": 0.7},
+            "color": {"field": "group2"}
+          }
+        },
+        {
+          "title": "Fg. 1: Number of Times the Tetragrammaton Appears in Each Book of the Tanakh, Compared to the Number of Each Type of Prophecy Per Book",
+          "mark": "bar",
+          "encoding": {
+            "x": {"field": "category2", "title": null, "sort": null},
+            "y": {
+              "field": "value2",
+              "title": "Number of Unique Occurences",
+              "axis": {"titlePadding": 25},
+              "type": "quantitative",
+              "scale": {"domain": [0, 850]}
+            },
+            "xOffset": {"field": "group2"},
+            "color": {
+              "field": "group2",
+              "title": "Color Legend",
+              "scale": {
+                "domain": [
+                  "Yahweh Count",
+                  "Prophetic Count",
+                  "Messianic Type Count",
+                  "Messianic Prophetic Count",
+                  ""
+                ],
+                "range": [
+                  "#da5950",
+                  "#ec8500",
+                  "#7cb7b3",
+                  "#5279aa",
+                  "",
+                  "#da5950",
+                  "#ec8500",
+                  "#7cb7b3",
+                  "#5279aa",
+                  "#ebc921"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "layer": [
+        {
+          "mark": "rule",
+          "encoding": {
+            "y": {"field": "value2", "aggregate": "mean"},
+            "size": {"value": 1},
+            "opacity": {"value": 0.7},
+            "color": {"field": "group2"}
+          }
+        },
+        {
+          "mark": "bar",
+          "encoding": {
+            "x": {
+              "field": "category5",
+              "title": "Book of the Tanakh",
+              "axis": {
+                "titleFontSize": 15,
+                "titleFontWeight": "lighter",
+                "titlePadding": 15
+              },
+              "sort": null
+            },
+            "y": {
+              "field": "value5",
+              "axis": {"titlePadding": 25},
+              "title": "Number of Unique Occurences",
+              "type": "quantitative",
+              "scale": {"domain": [0, 850]}
+            },
+            "xOffset": {"field": "group2"},
+            "color": {
+              "field": "group2",
+              "scale": {
+                "domain": [
+                  "Yahweh Count",
+                  "Prophetic Count",
+                  "Messianic Type Count",
+                  "Messianic Prophetic Count"
+                ],
+                "range": [
+                  "#da5950",
+                  "#ec8500",
+                  "#7cb7b3",
+                  "#5279aa",
+                  "#da5950",
+                  "#ec8500",
+                  "#7cb7b3",
+                  "#5279aa",
+                  "#ebc921"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "hconcat": [
+        {
+          "title": "Fg. 2: Frequency of the Tetragrammaton Compared to Frequency of Prophecies in the Tanakh",
+          "layer": [
+            {
+              "mark": {"type": "line", "point": true},
+              "encoding": {
+                "x": {
+                  "field": "category",
+                  "title": "Book of the Tanakh",
+                  "type": "nominal",
+                  "scale": {
+                    "domain": [
+                      "Gen",
+                      "Ex",
+                      "Lev",
+                      "Num",
+                      "Deut",
+                      "Josh",
+                      "Judg",
+                      "Ruth",
+                      "1 Sam",
+                      "2 Sam",
+                      "1 Kgs",
+                      "2 Kgs",
+                      "1 Chr",
+                      "2 Chr",
+                      "Ezra",
+                      "Neh",
+                      "Est",
+                      "Job",
+                      "Psa",
+                      "Prov",
+                      "Eccl",
+                      "Song",
+                      "Isa",
+                      "Jer",
+                      "Lam",
+                      "Ezek",
+                      "Dan",
+                      "Hos",
+                      "Joel",
+                      "Amos",
+                      "Obad",
+                      "Jon",
+                      "Mic",
+                      "Nah",
+                      "Hab",
+                      "Zeph",
+                      "Hag",
+                      "Zech",
+                      "Mal"
+                    ]
+                  },
+                  "sort": [
+                    "Gen",
+                    "Ex",
+                    "Lev",
+                    "Num",
+                    "Deut",
+                    "Josh",
+                    "Judg",
+                    "Ruth",
+                    "1 Sam",
+                    "2 Sam",
+                    "1 Kgs",
+                    "2 Kgs",
+                    "1 Chr",
+                    "2 Chr",
+                    "Ezra",
+                    "Neh",
+                    "Est",
+                    "Job",
+                    "Psa",
+                    "Prov",
+                    "Eccl",
+                    "Song",
+                    "Isa",
+                    "Jer",
+                    "Lam",
+                    "Ezek",
+                    "Dan",
+                    "Hos",
+                    "Joel",
+                    "Amos",
+                    "Obad",
+                    "Jon",
+                    "Mic",
+                    "Nah",
+                    "Hab",
+                    "Zeph",
+                    "Hag",
+                    "Zech",
+                    "Mal"
+                  ]
+                },
+                "y": {
+                  "field": "value",
+                  "axis": {"titlePadding": 25},
+                  "title": "Frequency of Occurence (as a Percentage)",
+                  "type": "quantitative"
+                },
+                "color": {
+                  "field": "group",
+                  "type": "nominal",
+                  "scale": {
+                    "domain": [
+                      "Yahweh Frequency",
+                      "Prophetic Frequency",
+                      "Messianic Type Frequency"
+                    ],
+                    "range": [
+                      "#da5950",
+                      "#ec8500",
+                      "#7cb7b3",
+                      "#5279aa",
+                      "#da5950",
+                      "#ec8500",
+                      "#7cb7b3",
+                      "#5279aa",
+                      "#ebc921"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "mark": "rule",
+              "encoding": {
+                "x": {
+                  "field": "category3",
+                  "scale": {
+                    "domain": [
+                      "Gen",
+                      "Ex",
+                      "Lev",
+                      "Num",
+                      "Deut",
+                      "Josh",
+                      "Judg",
+                      "Ruth",
+                      "1 Sam",
+                      "2 Sam",
+                      "1 Kgs",
+                      "2 Kgs",
+                      "1 Chr",
+                      "2 Chr",
+                      "Ezra",
+                      "Neh",
+                      "Est",
+                      "Job",
+                      "Psa",
+                      "Prov",
+                      "Eccl",
+                      "Song",
+                      "Isa",
+                      "Jer",
+                      "Lam",
+                      "Ezek",
+                      "Dan",
+                      "Hos",
+                      "Joel",
+                      "Amos",
+                      "Obad",
+                      "Jon",
+                      "Mic",
+                      "Nah",
+                      "Hab",
+                      "Zeph",
+                      "Hag",
+                      "Zech",
+                      "Mal"
+                    ]
+                  },
+                  "sort": [
+                    "Gen",
+                    "Ex",
+                    "Lev",
+                    "Num",
+                    "Deut",
+                    "Josh",
+                    "Judg",
+                    "Ruth",
+                    "1 Sam",
+                    "2 Sam",
+                    "1 Kgs",
+                    "2 Kgs",
+                    "1 Chr",
+                    "2 Chr",
+                    "Ezra",
+                    "Neh",
+                    "Est",
+                    "Job",
+                    "Psa",
+                    "Prov",
+                    "Eccl",
+                    "Song",
+                    "Isa",
+                    "Jer",
+                    "Lam",
+                    "Ezek",
+                    "Dan",
+                    "Hos",
+                    "Joel",
+                    "Amos",
+                    "Obad",
+                    "Jon",
+                    "Mic",
+                    "Nah",
+                    "Hab",
+                    "Zeph",
+                    "Hag",
+                    "Zech",
+                    "Mal"
+                  ]
+                },
+                "color": {"value": "#d3d3d3"}
+              }
+            },
+            {
+              "mark": {"type": "line", "point": true},
+              "encoding": {
+                "x": {
+                  "field": "category1",
+                  "type": "nominal",
+                  "scale": {
+                    "domain": [
+                      "Gen",
+                      "Ex",
+                      "Lev",
+                      "Num",
+                      "Deut",
+                      "Josh",
+                      "Judg",
+                      "Ruth",
+                      "1 Sam",
+                      "2 Sam",
+                      "1 Kgs",
+                      "2 Kgs",
+                      "1 Chr",
+                      "2 Chr",
+                      "Ezra",
+                      "Neh",
+                      "Est",
+                      "Job",
+                      "Psa",
+                      "Prov",
+                      "Eccl",
+                      "Song",
+                      "Isa",
+                      "Jer",
+                      "Lam",
+                      "Ezek",
+                      "Dan",
+                      "Hos",
+                      "Joel",
+                      "Amos",
+                      "Obad",
+                      "Jon",
+                      "Mic",
+                      "Nah",
+                      "Hab",
+                      "Zeph",
+                      "Hag",
+                      "Zech",
+                      "Mal"
+                    ]
+                  },
+                  "sort": [
+                    "Gen",
+                    "Ex",
+                    "Lev",
+                    "Num",
+                    "Deut",
+                    "Josh",
+                    "Judg",
+                    "Ruth",
+                    "1 Sam",
+                    "2 Sam",
+                    "1 Kgs",
+                    "2 Kgs",
+                    "1 Chr",
+                    "2 Chr",
+                    "Ezra",
+                    "Neh",
+                    "Est",
+                    "Job",
+                    "Psa",
+                    "Prov",
+                    "Eccl",
+                    "Song",
+                    "Isa",
+                    "Jer",
+                    "Lam",
+                    "Ezek",
+                    "Dan",
+                    "Hos",
+                    "Joel",
+                    "Amos",
+                    "Obad",
+                    "Jon",
+                    "Mic",
+                    "Nah",
+                    "Hab",
+                    "Zeph",
+                    "Hag",
+                    "Zech",
+                    "Mal"
+                  ]
+                },
+                "y": {"field": "value1", "type": "quantitative"},
+                "color": {
+                  "field": "group",
+                  "type": "nominal",
+                  "scale": {
+                    "domain": [
+                      "Yahweh Frequency",
+                      "Prophetic Frequency",
+                      "Messianic Type Frequency"
+                    ],
+                    "range": [
+                      "#da5950",
+                      "#ec8500",
+                      "#7cb7b3",
+                      "#5279aa",
+                      "#da5950",
+                      "#ec8500",
+                      "#7cb7b3",
+                      "#5279aa",
+                      "#ebc921"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "title": "Fg. 3: Frequency of the Tetragrammaton Compared to the Frequency of Elohim and Y'ishrael in the Tanakh",
+          "layer": [
+            {
+              "mark": {"type": "line", "point": true},
+              "encoding": {
+                "x": {
+                  "field": "category4",
+                  "title": "Book of the Tanakh",
+                  "type": "nominal",
+                  "scale": {
+                    "domain": [
+                      "Gen",
+                      "Ex",
+                      "Lev",
+                      "Num",
+                      "Deut",
+                      "Josh",
+                      "Judg",
+                      "Ruth",
+                      "1 Sam",
+                      "2 Sam",
+                      "1 Kgs",
+                      "2 Kgs",
+                      "1 Chr",
+                      "2 Chr",
+                      "Ezra",
+                      "Neh",
+                      "Est",
+                      "Job",
+                      "Psa",
+                      "Prov",
+                      "Eccl",
+                      "Song",
+                      "Isa",
+                      "Jer",
+                      "Lam",
+                      "Ezek",
+                      "Dan",
+                      "Hos",
+                      "Joel",
+                      "Amos",
+                      "Obad",
+                      "Jon",
+                      "Mic",
+                      "Nah",
+                      "Hab",
+                      "Zeph",
+                      "Hag",
+                      "Zech",
+                      "Mal"
+                    ]
+                  },
+                  "sort": [
+                    "Gen",
+                    "Ex",
+                    "Lev",
+                    "Num",
+                    "Deut",
+                    "Josh",
+                    "Judg",
+                    "Ruth",
+                    "1 Sam",
+                    "2 Sam",
+                    "1 Kgs",
+                    "2 Kgs",
+                    "1 Chr",
+                    "2 Chr",
+                    "Ezra",
+                    "Neh",
+                    "Est",
+                    "Job",
+                    "Psa",
+                    "Prov",
+                    "Eccl",
+                    "Song",
+                    "Isa",
+                    "Jer",
+                    "Lam",
+                    "Ezek",
+                    "Dan",
+                    "Hos",
+                    "Joel",
+                    "Amos",
+                    "Obad",
+                    "Jon",
+                    "Mic",
+                    "Nah",
+                    "Hab",
+                    "Zeph",
+                    "Hag",
+                    "Zech",
+                    "Mal"
+                  ]
+                },
+                "y": {
+                  "field": "value4",
+                  "axis": {"titlePadding": 25},
+                  "title": "Frequency of Occurence (as a Percentage)",
+                  "type": "quantitative"
+                },
+                "color": {
+                  "field": "group4",
+                  "type": "nominal",
+                  "scale": {
+                    "domain": [
+                      "Yahweh Frequency",
+                      "Elohim Frequency",
+                      "Yishrael Frequency"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "mark": {"type": "line", "point": true},
+              "encoding": {
+                "x": {
+                  "field": "category1",
+                  "type": "nominal",
+                  "scale": {
+                    "domain": [
+                      "Gen",
+                      "Ex",
+                      "Lev",
+                      "Num",
+                      "Deut",
+                      "Josh",
+                      "Judg",
+                      "Ruth",
+                      "1 Sam",
+                      "2 Sam",
+                      "1 Kgs",
+                      "2 Kgs",
+                      "1 Chr",
+                      "2 Chr",
+                      "Ezra",
+                      "Neh",
+                      "Est",
+                      "Job",
+                      "Psa",
+                      "Prov",
+                      "Eccl",
+                      "Song",
+                      "Isa",
+                      "Jer",
+                      "Lam",
+                      "Ezek",
+                      "Dan",
+                      "Hos",
+                      "Joel",
+                      "Amos",
+                      "Obad",
+                      "Jon",
+                      "Mic",
+                      "Nah",
+                      "Hab",
+                      "Zeph",
+                      "Hag",
+                      "Zech",
+                      "Mal"
+                    ]
+                  },
+                  "sort": [
+                    "Gen",
+                    "Ex",
+                    "Lev",
+                    "Num",
+                    "Deut",
+                    "Josh",
+                    "Judg",
+                    "Ruth",
+                    "1 Sam",
+                    "2 Sam",
+                    "1 Kgs",
+                    "2 Kgs",
+                    "1 Chr",
+                    "2 Chr",
+                    "Ezra",
+                    "Neh",
+                    "Est",
+                    "Job",
+                    "Psa",
+                    "Prov",
+                    "Eccl",
+                    "Song",
+                    "Isa",
+                    "Jer",
+                    "Lam",
+                    "Ezek",
+                    "Dan",
+                    "Hos",
+                    "Joel",
+                    "Amos",
+                    "Obad",
+                    "Jon",
+                    "Mic",
+                    "Nah",
+                    "Hab",
+                    "Zeph",
+                    "Hag",
+                    "Zech",
+                    "Mal"
+                  ]
+                },
+                "y": {"field": "value1", "type": "quantitative"},
+                "color": {
+                  "field": "group",
+                  "type": "nominal",
+                  "scale": {
+                    "domain": [
+                      "Yahweh Frequency",
+                      "Elohim Frequency",
+                      "Yishrael Frequency"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "mark": "rule",
+              "encoding": {
+                "x": {
+                  "field": "category3",
+                  "scale": {
+                    "domain": [
+                      "Gen",
+                      "Ex",
+                      "Lev",
+                      "Num",
+                      "Deut",
+                      "Josh",
+                      "Judg",
+                      "Ruth",
+                      "1 Sam",
+                      "2 Sam",
+                      "1 Kgs",
+                      "2 Kgs",
+                      "1 Chr",
+                      "2 Chr",
+                      "Ezra",
+                      "Neh",
+                      "Est",
+                      "Job",
+                      "Psa",
+                      "Prov",
+                      "Eccl",
+                      "Song",
+                      "Isa",
+                      "Jer",
+                      "Lam",
+                      "Ezek",
+                      "Dan",
+                      "Hos",
+                      "Joel",
+                      "Amos",
+                      "Obad",
+                      "Jon",
+                      "Mic",
+                      "Nah",
+                      "Hab",
+                      "Zeph",
+                      "Hag",
+                      "Zech",
+                      "Mal"
+                    ]
+                  },
+                  "sort": [
+                    "Gen",
+                    "Ex",
+                    "Lev",
+                    "Num",
+                    "Deut",
+                    "Josh",
+                    "Judg",
+                    "Ruth",
+                    "1 Sam",
+                    "2 Sam",
+                    "1 Kgs",
+                    "2 Kgs",
+                    "1 Chr",
+                    "2 Chr",
+                    "Ezra",
+                    "Neh",
+                    "Est",
+                    "Job",
+                    "Psa",
+                    "Prov",
+                    "Eccl",
+                    "Song",
+                    "Isa",
+                    "Jer",
+                    "Lam",
+                    "Ezek",
+                    "Dan",
+                    "Hos",
+                    "Joel",
+                    "Amos",
+                    "Obad",
+                    "Jon",
+                    "Mic",
+                    "Nah",
+                    "Hab",
+                    "Zeph",
+                    "Hag",
+                    "Zech",
+                    "Mal"
+                  ]
+                },
+                "color": {"value": "#d3d3d3"}
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+  </script>
+<br>
+<hr>
+<p><b>Figure 1</b> ordinally depicts the number of times that the Tetragrammaton and three types of prophecy (Predictive, Messianic, and Messianic-Typological) are used per each canonical book of the Tanakh. The mean lines for each data type are depicted for clarity and ease of interpretation.</p>
+<p><b>Figure 2</b> displays the frequency (the number of types it appears over the total number of words) of the Tetragrammaton's appearance per each book of the Tanakh. Plotted on the same graph is the frequency (number of prophetic verses over the total number of verses) which prophecies and Messianic types appear in the books of the Tanakh.</p>
+<p><b>Figure 3</b> similarly displays the frequency of the Tetragrammaton per each book of the canonical Tanakh, but this time is compared to the frequency at which the Hebrew words <i>Elohim</i> and <i>Y'ishrael</i> appear in each book.
+<br>The vertical lines that appear on <b>Figures 2 and 3</b> mark notable events in the historical canon. These are as follows (from right to left starting at Leviticus): the Sinai Revelation, Israel's entrance into Canaan, David's anointing as king of Israel, the exile of the two kingdoms, the rebuilding of the Temple, and the start of the age of the prophets.</p>
+<b>
+<p><small>The data that constitutes the counts and frequencies of Hebrew words (<i>Yahweh</i>, <i>Elohim</i>, and <i>Y'ishrael</i>) was taken from GitHub user DavidIB's repository STEPBible, using the Strong's Number tags taken from the TTESV - Tyndale Translation tags for ESV - TyndaleHouse.com STEPBible.org CC BY-NC.txt file. The link is as follows: https://github.com/STEPBible/STEPBible-Data.git
+<br>The data that constitutes the Prophetic Count/Frequency and the Messianic Type Count/Frequency comes from the appendix Statistics by Biblical Books in the <em>Encyclopedia of Biblical Prophecy: The Complete Guide to Scriptural Predictions and Their Fulfillment</em> by J. Barton Payne, published by Harper & Row in 1973.
+<br>The data that constitutes the Messianic Prophetic Count comes from Appendix IX of <em>The Life and Times of Jesus the Messiah: New Updated Edition</em> by Alfred Edersheim, published by Hendrickson Pub in 1993.</small></p>
+
+</body>
+</html>
